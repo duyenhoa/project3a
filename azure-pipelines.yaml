@@ -37,7 +37,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: '8c73b586-b7b0-460e-b8a1-7d59f3050c32'
+              azureSubscription: 'Azure subscription 1 (8c73b586-b7b0-460e-b8a1-7d59f3050c32)'
               appName: 'web-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
