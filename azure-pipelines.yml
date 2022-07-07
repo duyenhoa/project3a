@@ -14,8 +14,7 @@ variables:
   webAppName: 'web-AppService'
 
   # Agent VM image name
-  pool:
-    name: myAgentPool
+  pool: myAgentPool
 
   # Environment name
   environmentName: 'web-AppService'
