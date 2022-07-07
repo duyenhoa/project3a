@@ -28,7 +28,7 @@ stages:
   jobs:
   - deployment: FakeRestAPI
     pool:
-      myAgentPool
+      name: myAgentPool
     environment: 'TEST'
     strategy:
       runOnce:
