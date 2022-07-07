@@ -1,4 +1,17 @@
-name: Azure Pipelines
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1 (8c73b586-b7b0-460e-b8a1-7d59f3050c32)'
+    appType: 'webAppLinux'
+    appName: 'yenhoaudacity'
+    deployToSlotOrASE: true
+    resourceGroupName: 'yenhoa_infra_rg_2732'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'PYTHON|3.7'
+    
+trigger:
+- main
+
 variables:
   python.version: '3.7.6'
 stages:
