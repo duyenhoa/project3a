@@ -29,7 +29,7 @@ stages:
         rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
         includeRootFolder: false
         archiveType: 'zip'
-        archiveFile: $(Build.BuildId)-fakerestapi.zip'
+        archiveFile: $(Build.BuildId)-fakerestapi.zip
 
     - publish: $(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
