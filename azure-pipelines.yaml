@@ -49,7 +49,7 @@ stages:
               azureSubscription: 'udacity3'
               appType: 'webApp'
               appName: 'web-AppService'
-              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              package: '$(Pipeline.Workspace)/$(Build.BuildId).zip'
               deploymentMethod: 'auto'
   # - deployment: VMDeploy
   #   displayName: NAME
