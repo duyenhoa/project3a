@@ -77,10 +77,10 @@ stages:
 
   - stage: Build
     jobs:
-      - job: Build
-        pool:
-          name: myAgentPool
-        steps:
+    - job: Build
+      pool:
+        name: myAgentPool
+      steps:
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
     #   inputs:
@@ -98,6 +98,7 @@ stages:
       - publish: $(Build.BuildId)-fakerestapi.zip
         displayName: 'Upload Package'
         artifact: drop-fakerestapi
+        
   - stage:
     jobs:
     - deployment: FakeRestAPI
