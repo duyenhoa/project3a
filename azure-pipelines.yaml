@@ -25,6 +25,12 @@ stages:
         displayName: Download terraform.tfvars
         inputs:
           secureFile: 'terraform.tfvars'
+      - task: InstallSSHKey@0
+        displayName: Security Access
+        inputs:
+          knownHostsEntry: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD3Q/HfDtXjL4mpmK9zocX4thW6x4ZBLAW+L4ebYwSIn1glwBKqjidPk1TSStexrWqGIZfoPY9JwtMovPwqGAAZKTnbGReblOv4TOOgIZAwd9DnZbiw2R7UaD7wMUKK4lkuzNTymHOz5wdwayNWTBTst3YqqmaaDAKffb0G4sTFSyEblz3ZiZRY32xbEEBPnExXxk87a20MRETKm07aElLlLUkHk6MyVk0LU2JZie9A6GqwgP3+9RPyoeDx4mcrUy5TdNAZOARnwVMrldfsxtDuEEKLBunH9CNvA4i7D/O8olO2M/XnvsskR8X3P/XtwJuAqjvnXh9b4V67ADXSfbuZfUrBSMQK2N4T6lcma+k7p7fHrUAZdTPyoS00JEaEXWG9OgLQIEtOET7G6uOM9fUZ48TtGuLltLdDzahTRnllcx5Pfw9EB3mDUzuFxgcz0Uex2I9h6AVaoyyJqN7HUh3v0XfuxJq6z7S1m4w171jiPJBuZFVZq8m/4ZMuj/0UgiM= onsiter@DESKTOP-8P7IEOO'
+          sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD3Q/HfDtXjL4mpmK9zocX4thW6x4ZBLAW+L4ebYwSIn1glwBKqjidPk1TSStexrWqGIZfoPY9JwtMovPwqGAAZKTnbGReblOv4TOOgIZAwd9DnZbiw2R7UaD7wMUKK4lkuzNTymHOz5wdwayNWTBTst3YqqmaaDAKffb0G4sTFSyEblz3ZiZRY32xbEEBPnExXxk87a20MRETKm07aElLlLUkHk6MyVk0LU2JZie9A6GqwgP3+9RPyoeDx4mcrUy5TdNAZOARnwVMrldfsxtDuEEKLBunH9CNvA4i7D/O8olO2M/XnvsskR8X3P/XtwJuAqjvnXh9b4V67ADXSfbuZfUrBSMQK2N4T6lcma+k7p7fHrUAZdTPyoS00JEaEXWG9OgLQIEtOET7G6uOM9fUZ48TtGuLltLdDzahTRnllcx5Pfw9EB3mDUzuFxgcz0Uex2I9h6AVaoyyJqN7HUh3v0XfuxJq6z7S1m4w171jiPJBuZFVZq8m/4ZMuj/0UgiM= onsiter@DESKTOP-8P7IEOO'
+          sshKeySecureFile: 'id_rsa'
       
       - task: Bash@3
         displayName: Copy terraform.tfvars
