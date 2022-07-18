@@ -76,46 +76,46 @@ stages:
           environmentServiceNameAzureRM: 'AZServiceConnection'
 
   - stage: Build
-  jobs:
-  - job: Build
-    pool:
-      name: myAgentPool
-    steps:
+    jobs:
+      - job: Build
+        pool:
+          name: myAgentPool
+        steps:
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
     #   inputs:
     #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
     #     sshPublicKey: 'PUBLIC_KEY'
     #     sshKeySecureFile: 'id_rsa'
-    - task: ArchiveFiles@2
-      displayName: 'Archive FakeRestAPI'
-      inputs:
-        rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: $(Build.BuildId)-fakerestapi.zip
+      - task: ArchiveFiles@2
+        displayName: 'Archive FakeRestAPI'
+        inputs:
+          rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: $(Build.BuildId)-fakerestapi.zip
 
-    - publish: $(Build.BuildId)-fakerestapi.zip
-      displayName: 'Upload Package'
-      artifact: drop-fakerestapi
-- stage:
-  jobs:
-  - deployment: FakeRestAPI
-    pool:
-      name: myAgentPool
-    environment: 'TEST'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'udacity3'
-              appType: 'webApp'
-              appName: 'web-AppService'
-              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
-              deploymentMethod: 'auto'
+      - publish: $(Build.BuildId)-fakerestapi.zip
+        displayName: 'Upload Package'
+        artifact: drop-fakerestapi
+  - stage:
+    jobs:
+    - deployment: FakeRestAPI
+      pool:
+        name: myAgentPool
+      environment: 'TEST'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: AzureWebApp@1
+              displayName: 'Deploy Azure Web App'
+              inputs:
+                azureSubscription: 'udacity3'
+                appType: 'webApp'
+                appName: 'web-AppService'
+                package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+                deploymentMethod: 'auto'
   # - deployment: VMDeploy
   #   displayName: NAME
   #   environment:
