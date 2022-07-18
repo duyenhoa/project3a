@@ -35,7 +35,7 @@ stages:
       - task: TerraformInstaller@0
         displayName: Install Terraform
         inputs:
-          terraformVersion: '0.14.8'
+          terraformVersion: '1.0.0'
       
       - task: TerraformTaskV1@0
         displayName: Terraform Init
@@ -98,7 +98,7 @@ stages:
       - publish: $(Build.BuildId)-fakerestapi.zip
         displayName: 'Upload Package'
         artifact: drop-fakerestapi
-        
+
   - stage:
     jobs:
     - deployment: FakeRestAPI
