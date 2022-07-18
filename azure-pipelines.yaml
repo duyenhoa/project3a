@@ -10,8 +10,72 @@ variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   python.version: '3.7.6'
 
+name: Azure Pipelines
 stages:
-- stage: Build
+  - stage: ProvisionIaC
+    displayName: Resources provisioning
+    jobs:
+    - job: Provision_Azure_IaC
+      displayName: Provision Azure IaC
+      pool:
+        name: myAgentPool
+      steps:
+      - task: DownloadSecureFile@1
+        name: tfvardef
+        displayName: Download terraform.tfvars
+        inputs:
+          secureFile: 'terraform.tfvars'
+      
+      - task: Bash@3
+        displayName: Copy terraform.tfvars
+        inputs:
+          targetType: 'inline'
+          script: cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform
+      
+      - task: TerraformInstaller@0
+        displayName: Install Terraform
+        inputs:
+          terraformVersion: '0.14.8'
+      
+      - task: TerraformTaskV1@0
+        displayName: Terraform Init
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'AZServiceConnection'
+          backendAzureRmResourceGroupName: 'Devops'
+          backendAzureRmStorageAccountName: 'hoaudacity3'
+          backendAzureRmContainerName: 'tf-state'
+          backendAzureRmKey: 'terraform.tfstate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+      
+      - task: TerraformTaskV1@0
+        displayName: Terraform Validate
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          environmentServiceNameAzureRM: 'AZServiceConnection'
+      
+      - task: TerraformTaskV1@0
+        displayName: Terraform Plan
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          environmentServiceNameAzureRM: 'AZServiceConnection'
+      
+      - task: TerraformTaskV1@0
+        displayName: Terraform Apply
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          commandOptions: |
+            -auto-approve
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          environmentServiceNameAzureRM: 'AZServiceConnection'
+
+  - stage: Build
   jobs:
   - job: Build
     pool:
