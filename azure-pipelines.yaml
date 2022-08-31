@@ -2,11 +2,6 @@ trigger:
   branches:
     include:
     - main
-  paths:
-    exclude:
-    - README.md
-    - .gitignore
-    - images/
 
 name: Azure Pipelines
 variables:
@@ -19,7 +14,7 @@ stages:
     - job: Provision_Azure_IaC
       displayName: Provision Azure IaC
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: 'ubuntu-latest'
       steps:
       - task: DownloadSecureFile@1
         name: tfvardef
